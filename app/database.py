@@ -7,13 +7,7 @@ from .config import settings
 
 # Database setup
 
-postgres_user = settings.database_username
-postgres_password = settings.database_password
-postgres_host = settings.database_hostname
-postgres_port = settings.database_port
-postgres_db = settings.database_name
-
-postgres_url = f"postgresql+psycopg://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
+postgres_url = f"postgresql+psycopg://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}"
 
 engine = create_engine(postgres_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
