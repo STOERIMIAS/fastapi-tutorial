@@ -5,6 +5,26 @@ from pydantic.types import Annotated
 
 # Pydantic or Schema model for request body 
 
+# User Schema Models
+class UserBase(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=8, max_length=72)
+
+class UserCreate(UserBase):
+    pass
+
+class UserResponse(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=8, max_length=72)
+
 # Post Schema Models
 class PostBase(BaseModel):
     title: str
@@ -29,27 +49,6 @@ class PostOut(BaseModel):
 
     class Config:
             from_attributes = True
-
-# User Schema Models
-class UserBase(BaseModel):
-    email: EmailStr
-    password: str = Field(..., min_length=8, max_length=72)
-
-class UserCreate(UserBase):
-    pass
-
-class UserResponse(BaseModel):
-    id: int
-    email: EmailStr
-    created_at: datetime
-
-    class Config:
-        from_attributes = True
-
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str = Field(..., min_length=8, max_length=72)
-
 
 class Token(BaseModel):
     access_token: str
